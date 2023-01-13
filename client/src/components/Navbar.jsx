@@ -11,6 +11,7 @@ const Navbar = () => {
   const [isActive, setIsActive] = useState('dashboard');
   const [toggleDrawer, setToggleDrawer] = useState(false);
 
+  //check if wallet is connected
   const { connect, address } = useStateContext();
 
   return (
