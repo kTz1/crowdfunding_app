@@ -48,11 +48,11 @@ contract Crowdfunding {
     (bool sent,) = payable(campaign.owner).call{value: amount}("");
 
     if(sent) {
-      campaign.amountCollected + amount;
+      campaign.amountCollected = campaign.amountCollected + amount;
     }
   }
 
-  function getDonetors(uint256 _id) view public returns (address[] memory, uint256[] memory) {
+  function getDonators(uint256 _id) view public returns (address[] memory, uint256[] memory) {
     return (campaigns[_id].donators, campaigns[_id].donations);
   }
 
