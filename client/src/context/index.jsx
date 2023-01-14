@@ -5,7 +5,7 @@ import { ethers } from 'ethers';
 const StateContext = createContext();
 
 export const StateContextProvider = ({ children }) => {
-  const { contract } = useContract('0x13EE12aDE6E5d849A04d9452cc4723428026a3D1'); // address of the smart contract
+  const { contract } = useContract('0x89fe40EE9B81a0EF87ee197f97827fF91405E7c2'); // address of the smart contract
   const { mutateAsync: createCampaign } = useContractWrite(contract, 'createCampaign');
 
   const address = useAddress();
@@ -57,6 +57,28 @@ export const StateContextProvider = ({ children }) => {
     return filteredCampaigns;
   }
 
+  // creating and getting donations
+  const donate = async (pId, amount) => {
+    const data = await contract.call('donateToCampaign', pId, { value: ethers.utils.parseEther(amount) }); // call contract
+    return data;
+  }
+
+  const getDonations = async (pId) => {
+    const donations = await contract.call('getDonators', pId);
+    const numberOfDonations = donations[0].length;
+
+    const parsedDonations = [];
+
+    for(let i = 0; i < numberOfDonations; i++) {
+      parsedDonations.push({
+        donator: donations[0][i],
+        donation: ethers.utils.formatEther(donations[1][i].toString()),
+      });
+    }
+
+    return parsedDonations;
+  }
+
   return (
     <StateContext.Provider 
       value={{ 
@@ -66,6 +88,8 @@ export const StateContextProvider = ({ children }) => {
         createCampaign: publishCampaign,
         getCampaigns,
         getUserCampaigns,
+        donate,
+        getDonations,
       }}
     >
       {children}

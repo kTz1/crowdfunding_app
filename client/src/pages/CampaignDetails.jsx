@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { Navigate, useLocation } from 'react-router-dom';
 import { ethers } from 'ethers';
 
 import { useStateContext } from '../context';
@@ -9,17 +9,30 @@ import { thirdweb } from '../assets';
 
 const CampaignDetails = () => {
   const { state } = useLocation();
-  const { getDonations, contract, address } = useStateContext();
+  const { donate, getDonations, contract, address } = useStateContext();
 
   const [isLoading, setIsLoading] = useState(false);
   const [amount, setAmount] = useState('');
-  const [donators, setDonators] = useState('');
+  const [donators, setDonators] = useState([]);
   
   const remainingDays = daysLeft(state.deadline);
 
+  // Fetch donators
+  const fetchDonators = async () => {
+    const data = await getDonations(state.pId);
+    setDonators(data);
+  }
+
+  useEffect(() => {
+    if(contract) fetchDonators();
+  }, [contract, address]);
+
   // Handle donate
   const handleDonate = async () => {
-
+    setIsLoading(true);
+    await donate(state.pId, amount);
+    Navigate('/');
+    setIsLoading(false);
   }
 
   return (
@@ -73,8 +86,12 @@ const CampaignDetails = () => {
             <h4 className="font-epilogue font-semibold text-[18px] text-white uppercase">Donators</h4>
             <div className="mt-[20px] flex flex-col gap-4">
               {donators.length > 0 ? donators.map((item, index) => (
-                <div>
-                  Donators
+                <div 
+                  key={`${item.donator}-${index}`}
+                  className="flex justify-between intems-center gap-4"
+                >
+                  <p className="font-epilogue font-normal text-[16px] text-[#b2b3bd] leading-[26px] break-all">{index + 1}. {item.donator}</p>
+                  <p className="font-epilogue font-normal text-[16px] text-[#808191] leading-[26px] break-all">{item.donation}</p>
                 </div>
               )) : (
                 <p className="font-epilogue font-normal text-[16px] text-[#808191] leading-[26px] text-justify">No donators yet. Be the first one!</p>
