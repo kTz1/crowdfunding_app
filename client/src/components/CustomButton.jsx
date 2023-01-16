@@ -9,7 +9,7 @@ const CustomButton = ({ btnType, title, handleClick, styles }) => {
     > 
       {title}
     </button>
-  )
-}
+  );
+};
 
-export default CustomButton
+export default CustomButton;

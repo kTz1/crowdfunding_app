@@ -28,7 +28,7 @@ const Profile = () => {
       isLoading={isLoading}
       campaigns={campaigns}
     />
-  )
-}
+  );
+};
 
-export default Profile
+export default Profile;

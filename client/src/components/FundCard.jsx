@@ -52,7 +52,7 @@ const FundCard = ({ owner, title, description, target, deadline, amountCollected
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default FundCard
+export default FundCard;

@@ -46,7 +46,7 @@ export const StateContextProvider = ({ children }) => {
     }));
 
     return parsedCampaigns;
-  }
+  };
 
   // get user campaigns
   const getUserCampaigns = async () => {
@@ -55,13 +55,13 @@ export const StateContextProvider = ({ children }) => {
     const filteredCampaigns = allCampaigns.filter((campaign) => campaign.owner === address);
 
     return filteredCampaigns;
-  }
+  };
 
   // creating and getting donations
   const donate = async (pId, amount) => {
     const data = await contract.call('donateToCampaign', pId, { value: ethers.utils.parseEther(amount) }); // call contract
     return data;
-  }
+  };
 
   const getDonations = async (pId) => {
     const donations = await contract.call('getDonators', pId);
@@ -74,10 +74,10 @@ export const StateContextProvider = ({ children }) => {
         donator: donations[0][i],
         donation: ethers.utils.formatEther(donations[1][i].toString()),
       });
-    }
+    };
 
     return parsedDonations;
-  }
+  };
 
   return (
     <StateContext.Provider 
@@ -94,8 +94,8 @@ export const StateContextProvider = ({ children }) => {
     >
       {children}
     </StateContext.Provider>
-  )
-}
+  );
+};
 
 // Render the children
 export const useStateContext = () => useContext(StateContext);

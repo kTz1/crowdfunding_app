@@ -10,12 +10,11 @@ const DisplayCampaigns = ({ title, isLoading, campaigns }) => {
   // pass the state to campaign details
   const handleNavigate = (campaign) => {
     navigate(`/campaign-details/${campaign.title}`, { state: campaign })
-  }
+  };
 
   return (
     <div>
       <h1 className="font-epilogue font-semibold text-[18px] text-white text-left">{title} ({campaigns.length})</h1>
-
       <div className="flex flex-wrap mt-[20px] gap-[26px]">
         {/* Loader */}
         {isLoading && (
@@ -43,7 +42,7 @@ const DisplayCampaigns = ({ title, isLoading, campaigns }) => {
         )}
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default DisplayCampaigns
+export default DisplayCampaigns;

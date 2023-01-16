@@ -39,10 +39,7 @@ const CreateCampaign = () => {
         alert('Provide valid image URL');
         setForm({ ...form, image: '' });
       }
-    })
-
-
-    console.log(form);
+    });
   };
 
   return (
@@ -131,7 +128,7 @@ const CreateCampaign = () => {
         </div>
       </form>
     </div>
-  )
-}
+  );
+};
 
-export default CreateCampaign
+export default CreateCampaign;

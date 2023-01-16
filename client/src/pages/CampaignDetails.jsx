@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { ethers } from 'ethers';
 
 import { useStateContext } from '../context';
 import { CustomButton, CountBox, Loader } from '../components';
@@ -22,7 +21,7 @@ const CampaignDetails = () => {
   const fetchDonators = async () => {
     const data = await getDonations(state.pId);
     setDonators(data);
-  }
+  };
 
   useEffect(() => {
     if(contract) fetchDonators();
@@ -34,7 +33,7 @@ const CampaignDetails = () => {
     await donate(state.pId, amount);
     navigate('/');
     setIsLoading(false);
-  }
+  };
 
   return (
     <div>
@@ -131,7 +130,7 @@ const CampaignDetails = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default CampaignDetails
+export default CampaignDetails;

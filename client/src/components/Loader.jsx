@@ -12,7 +12,7 @@ const Loader = () => {
       />
       <p className="mt-[20px] font-epilogue font-bold text-white text-[20px] text-center">Transaction is in progress <br />Please wait...</p>
     </div>
-  )
-}
+  );
+};
 
-export default Loader
+export default Loader;

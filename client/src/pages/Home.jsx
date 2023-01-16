@@ -28,7 +28,7 @@ const Home = () => {
       isLoading={isLoading}
       campaigns={campaigns}
     />
-  )
-}
+  );
+};
 
-export default Home
+export default Home;
