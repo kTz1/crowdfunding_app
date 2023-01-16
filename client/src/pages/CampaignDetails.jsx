@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { Navigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { ethers } from 'ethers';
 
 import { useStateContext } from '../context';
-import { CustomButton, CountBox } from '../components';
+import { CustomButton, CountBox, Loader } from '../components';
 import { calculateBarPercentage, daysLeft } from '../utils';
 import { thirdweb } from '../assets';
 
 const CampaignDetails = () => {
   const { state } = useLocation();
   const { donate, getDonations, contract, address } = useStateContext();
+  const navigate = useNavigate();
 
   const [isLoading, setIsLoading] = useState(false);
   const [amount, setAmount] = useState('');
@@ -31,13 +32,13 @@ const CampaignDetails = () => {
   const handleDonate = async () => {
     setIsLoading(true);
     await donate(state.pId, amount);
-    Navigate('/');
+    navigate('/');
     setIsLoading(false);
   }
 
   return (
     <div>
-      {isLoading && 'Loading...'}
+      {isLoading && <Loader />}
 
       <div className="w-full flex md:flex-row flex-col mt-10 gap-[30px]">
         <div className="flex-1 flex-col">
